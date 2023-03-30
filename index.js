@@ -46,6 +46,12 @@ const run = async () => {
 
 			return res.send(result);
 		});
+
+		app.delete('/user/:email', async (req, res) => {
+			const query = { email: req.params.email };
+			const result = await UsersCollection.deleteOne(query);
+			return res.send(result);
+		});
 	} finally {
 	}
 };
