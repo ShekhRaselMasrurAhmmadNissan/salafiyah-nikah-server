@@ -20,6 +20,26 @@ const run = async () => {
 	try {
 		const db = client.db('SalafiyahNikah');
 		const UsersCollection = db.collection('Users');
+
+		app.put('/user', async (req, res) => {
+			const data = req.body;
+			console.log(data);
+			const filter = { email: data.email };
+			const options = {
+				upsert: true,
+				new: true,
+				setDefaultsOnInsert: true,
+			};
+			const result = await UsersCollection.findOneAndUpdate(
+				filter,
+				{ $set: data },
+				options
+			);
+
+			// const result = await UsersCollection.insertOne(data);
+
+			return res.send(result);
+		});
 	} finally {
 	}
 };
