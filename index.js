@@ -21,6 +21,12 @@ const run = async () => {
 		const db = client.db('SalafiyahNikah');
 		const UsersCollection = db.collection('Users');
 
+		app.get('/user/:email', async (req, res) => {
+			const query = { email: req.params.email };
+			const result = await UsersCollection.findOne(query);
+			return res.send(result);
+		});
+
 		app.put('/user', async (req, res) => {
 			const data = req.body;
 			console.log(data);
